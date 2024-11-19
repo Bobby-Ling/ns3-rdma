@@ -79,7 +79,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\lte\helper\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -95,7 +95,7 @@ copy "$(SolutionDir)\..\..\src\lte\helper\*.h"  "$(SolutionDir)\headers\ns3"</Co
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\lte\helper\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -114,7 +114,7 @@ copy "$(SolutionDir)\..\..\src\lte\helper\*.h"  "$(SolutionDir)\headers\ns3"</Co
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\lte\helper\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -141,7 +141,7 @@ copy "$(SolutionDir)\..\..\src\lte\helper\*.h"  "$(SolutionDir)\headers\ns3"</Co
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\lte\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\lte\helper\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

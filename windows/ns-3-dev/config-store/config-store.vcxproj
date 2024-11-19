@@ -78,7 +78,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
+      <Command>copy /Y "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -92,7 +92,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
+      <Command>copy /Y "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,7 +110,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
+      <Command>copy /Y "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,7 +136,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
+      <Command>copy /Y "$(SolutionDir)\..\..\src\config-store\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

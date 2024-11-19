@@ -79,7 +79,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\nix-vector-routing\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
@@ -96,7 +96,7 @@ copy "$(SolutionDir)\..\..\src\nix-vector-routing\helper\*.h"  "$(SolutionDir)\h
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\nix-vector-routing\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
@@ -116,7 +116,7 @@ copy "$(SolutionDir)\..\..\src\nix-vector-routing\helper\*.h"  "$(SolutionDir)\h
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\nix-vector-routing\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
@@ -144,7 +144,7 @@ copy "$(SolutionDir)\..\..\src\nix-vector-routing\helper\*.h"  "$(SolutionDir)\h
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\nix-vector-routing\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\nix-vector-routing\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>

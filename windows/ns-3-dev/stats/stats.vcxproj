@@ -79,7 +79,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -95,7 +95,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -114,7 +114,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
+      <Command>copy /Y "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,7 +140,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
+      <Command>copy /Y "$(SolutionDir)\..\..\src\stats\model\*.h"  "$(SolutionDir)\headers\ns3"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

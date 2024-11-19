@@ -79,7 +79,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\uan\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
@@ -96,7 +96,7 @@ copy "$(SolutionDir)\..\..\src\uan\helper\*.h"  "$(SolutionDir)\headers\ns3"
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\uan\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
@@ -116,7 +116,7 @@ copy "$(SolutionDir)\..\..\src\uan\helper\*.h"  "$(SolutionDir)\headers\ns3"
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\uan\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
@@ -144,7 +144,7 @@ copy "$(SolutionDir)\..\..\src\uan\helper\*.h"  "$(SolutionDir)\headers\ns3"
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
+      <Command>copy /Y "$(SolutionDir)\..\..\src\uan\model\*.h"  "$(SolutionDir)\headers\ns3"
 copy "$(SolutionDir)\..\..\src\uan\helper\*.h"  "$(SolutionDir)\headers\ns3"
 </Command>
     </PostBuildEvent>
