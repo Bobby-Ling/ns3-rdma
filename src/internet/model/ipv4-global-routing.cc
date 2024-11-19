@@ -319,6 +319,97 @@ Ipv4GlobalRouting::LookupGlobal (const Ipv4Header &header, Ptr<const Packet> ipP
     }
 }
 
+Ptr<Ipv4Route>
+Ipv4GlobalRouting::LookupGlobalOffset(const Ipv4Header& header, Ptr<const Packet> ipPayload, Ptr<NetDevice> oif, uint32_t offset)
+{
+    //return LookupGlobal(header, ipPayload, oif);
+
+    NS_LOG_FUNCTION_NOARGS();
+    NS_ABORT_MSG_IF(m_randomEcmpRouting && m_flowEcmpRouting, "Ecmp mode selection");
+    NS_LOG_LOGIC("Looking for route for destination " << header.GetDestination());
+
+    Ptr<Ipv4Route> rtentry = 0;
+    typedef std::vector<Ipv4RoutingTableEntry*> RouteVec_t;
+    RouteVec_t allRoutes;
+
+    for (HostRoutesCI i = m_hostRoutes.begin(); i != m_hostRoutes.end(); i++)
+    {
+        NS_ASSERT((*i)->IsHost());
+        if ((*i)->GetDest().IsEqual(header.GetDestination()))
+        {
+            if (oif != 0 && oif != m_ipv4->GetNetDevice((*i)->GetInterface()))
+            {
+                continue;
+            }
+            allRoutes.push_back(*i);
+        }
+    }
+
+    if (allRoutes.size() == 0)
+    {
+        for (NetworkRoutesI j = m_networkRoutes.begin(); j != m_networkRoutes.end(); j++)
+        {
+            Ipv4Mask mask = (*j)->GetDestNetworkMask();
+            Ipv4Address entry = (*j)->GetDestNetwork();
+            if (mask.IsMatch(header.GetDestination(), entry))
+            {
+                if (oif != 0 && oif != m_ipv4->GetNetDevice((*j)->GetInterface()))
+                {
+                    continue;
+                }
+                allRoutes.push_back(*j);
+            }
+        }
+    }
+
+    if (allRoutes.size() == 0)
+    {
+        for (ASExternalRoutesI k = m_ASexternalRoutes.begin(); k != m_ASexternalRoutes.end(); k++)
+        {
+            Ipv4Mask mask = (*k)->GetDestNetworkMask();
+            Ipv4Address entry = (*k)->GetDestNetwork();
+            if (mask.IsMatch(header.GetDestination(), entry))
+            {
+                if (oif != 0 && oif != m_ipv4->GetNetDevice((*k)->GetInterface()))
+                {
+                    continue;
+                }
+                allRoutes.push_back(*k);
+                break;
+            }
+        }
+    }
+
+    if (allRoutes.size() > 0)
+    {
+        uint32_t selectIndex;
+        if (m_randomEcmpRouting)
+        {
+            selectIndex = (m_rand->GetInteger(0, allRoutes.size() - 1) + offset) % allRoutes.size();
+        }
+        else if (m_flowEcmpRouting && (allRoutes.size() > 1))
+        {
+            selectIndex = (GetTupleValue(header, ipPayload) + offset) % allRoutes.size();
+        }
+        else
+        {
+            selectIndex = offset % allRoutes.size();
+        }
+
+        Ipv4RoutingTableEntry* route = allRoutes.at(selectIndex);
+        rtentry = Create<Ipv4Route>();
+        rtentry->SetDestination(route->GetDest());
+        rtentry->SetSource(m_ipv4->GetAddress(route->GetInterface(), 0).GetLocal());
+        rtentry->SetGateway(route->GetGateway());
+        rtentry->SetOutputDevice(m_ipv4->GetNetDevice(route->GetInterface()));
+        return rtentry;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
 uint32_t 
 Ipv4GlobalRouting::GetNRoutes (void) const
 {
@@ -536,7 +627,11 @@ Ipv4GlobalRouting::RouteOutput (Ptr<Packet> p, const Ipv4Header &header, Ptr<Net
   NS_LOG_LOGIC ("Unicast destination- looking up");
   // - Ptr<Ipv4Route> rtentry = LookupGlobal (header.GetDestination (), oif);
 
-  Ptr<Ipv4Route> rtentry = LookupGlobal (header, p, oif);
+       // 生成偏移量，例如使用源地址和时间戳
+  uint32_t offset = header.GetSource().Get() ^ Simulator::Now().GetMilliSeconds();
+
+  Ptr<Ipv4Route> rtentry = LookupGlobalOffset(header, p, oif, offset); // 传递偏移量
+  //Ptr<Ipv4Route> rtentry = LookupGlobal (header, p, oif);
   if (rtentry)
     {
       sockerr = Socket::ERROR_NOTERROR;
@@ -615,7 +710,12 @@ Ipv4GlobalRouting::RouteInput  (Ptr<const Packet> p, const Ipv4Header &header, P
   // Next, try to find a route
   NS_LOG_LOGIC ("Unicast destination- looking up global route");
   // - Ptr<Ipv4Route> rtentry = LookupGlobal (header.GetDestination ());
-  Ptr<Ipv4Route> rtentry = LookupGlobal (header, p);
+
+       // 生成偏移量，例如使用源地址和时间戳
+  uint32_t offset = header.GetSource().Get() ^ Simulator::Now().GetMilliSeconds();
+
+  Ptr<Ipv4Route> rtentry = LookupGlobalOffset(header, p, 0, offset); // 传递偏移量
+  //Ptr<Ipv4Route> rtentry = LookupGlobal (header, p);
   if (rtentry != 0)
     {
       NS_LOG_LOGIC ("Found unicast destination- calling unicast callback");

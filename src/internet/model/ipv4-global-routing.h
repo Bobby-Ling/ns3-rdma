@@ -45,16 +45,16 @@ class Node;
  * \brief Global routing protocol for IP version 4 stacks.
  *
  * In ns-3 we have the concept of a pluggable routing protocol.  Routing
- * protocols are added to a list maintained by the Ipv4L3Protocol.  Every 
+ * protocols are added to a list maintained by the Ipv4L3Protocol.  Every
  * stack gets one routing protocol for free -- the Ipv4StaticRouting routing
- * protocol is added in the constructor of the Ipv4L3Protocol (this is the 
+ * protocol is added in the constructor of the Ipv4L3Protocol (this is the
  * piece of code that implements the functionality of the IP layer).
  *
  * As an option to running a dynamic routing protocol, a GlobalRouteManager
  * object has been created to allow users to build routes for all participating
  * nodes.  One can think of this object as a "routing oracle"; it has
  * an omniscient view of the topology, and can construct shortest path
- * routes between all pairs of nodes.  These routes must be stored 
+ * routes between all pairs of nodes.  These routes must be stored
  * somewhere in the node, so therefore this class Ipv4GlobalRouting
  * is used as one of the pluggable routing protocols.  It is kept distinct
  * from Ipv4StaticRouting because these routes may be dynamically cleared
@@ -104,8 +104,8 @@ public:
  *
  * \see Ipv4Address
  */
-  void AddHostRouteTo (Ipv4Address dest, 
-                       Ipv4Address nextHop, 
+  void AddHostRouteTo (Ipv4Address dest,
+                       Ipv4Address nextHop,
                        uint32_t interface);
 /**
  * \brief Add a host route to the global routing table.
@@ -116,7 +116,7 @@ public:
  *
  * \see Ipv4Address
  */
-  void AddHostRouteTo (Ipv4Address dest, 
+  void AddHostRouteTo (Ipv4Address dest,
                        uint32_t interface);
 
 /**
@@ -130,9 +130,9 @@ public:
  *
  * \see Ipv4Address
  */
-  void AddNetworkRouteTo (Ipv4Address network, 
-                          Ipv4Mask networkMask, 
-                          Ipv4Address nextHop, 
+  void AddNetworkRouteTo (Ipv4Address network,
+                          Ipv4Mask networkMask,
+                          Ipv4Address nextHop,
                           uint32_t interface);
 
 /**
@@ -145,8 +145,8 @@ public:
  *
  * \see Ipv4Address
  */
-  void AddNetworkRouteTo (Ipv4Address network, 
-                          Ipv4Mask networkMask, 
+  void AddNetworkRouteTo (Ipv4Address network,
+                          Ipv4Mask networkMask,
                           uint32_t interface);
 
 /**
@@ -179,7 +179,7 @@ public:
  * it will appear as the zeroth entry in the table.  This means that if you
  * add only a default route, the table will have one entry that can be accessed
  * either by explicitly calling GetDefaultRoute () or by calling GetRoute (0).
- * 
+ *
  * Similarly, if the default route has been set, calling RemoveRoute (0) will
  * remove the default route.
  *
@@ -229,9 +229,9 @@ private:
   bool m_randomEcmpRouting;
   /// Set to true if flows are randomly routed among ECMP; set to false for using only one route consistently
   bool m_flowEcmpRouting;
-  /// Set to true if this interface should respond to interface events by globallly recomputing routes 
+  /// Set to true if this interface should respond to interface events by globallly recomputing routes
   bool m_respondToInterfaceEvents;
-  /// A uniform random number generator for randomly routing packets among ECMP 
+  /// A uniform random number generator for randomly routing packets among ECMP
   Ptr<UniformRandomVariable> m_rand;
 
   typedef std::list<Ipv4RoutingTableEntry *> HostRoutes;
@@ -247,12 +247,13 @@ private:
   // - Ptr<Ipv4Route> LookupGlobal (Ipv4Address dest, Ptr<NetDevice> oif = 0);
   uint32_t GetTupleValue (const Ipv4Header &header, Ptr<const Packet> ipPayload);
   Ptr<Ipv4Route> LookupGlobal (const Ipv4Header &header, Ptr<const Packet> ipPayload, Ptr<NetDevice> oif = 0);
+  Ptr<Ipv4Route> LookupGlobalOffset(const Ipv4Header& header, Ptr<const Packet> ipPayload, Ptr<NetDevice> oif = 0, uint32_t offset = 0);
 
   HostRoutes m_hostRoutes;
   NetworkRoutes m_networkRoutes;
   ASExternalRoutes m_ASexternalRoutes; // External routes imported
-  
-  
+
+
   Ptr<Ipv4> m_ipv4;
 };
 
