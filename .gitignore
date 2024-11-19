@@ -69,3 +69,4 @@ x64/Release/*
 x64/Release/mix/*
 !windows/ns-3-dev/x64/Release/mix/*.*
 
+__pycache__/
