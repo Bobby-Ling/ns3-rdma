@@ -322,7 +322,7 @@ Ipv4GlobalRouting::LookupGlobal (const Ipv4Header &header, Ptr<const Packet> ipP
 Ptr<Ipv4Route>
 Ipv4GlobalRouting::LookupGlobalOffset(const Ipv4Header& header, Ptr<const Packet> ipPayload, Ptr<NetDevice> oif, uint32_t offset)
 {
-    //return LookupGlobal(header, ipPayload, oif);
+    return LookupGlobal(header, ipPayload, oif);
 
     NS_LOG_FUNCTION_NOARGS();
     NS_ABORT_MSG_IF(m_randomEcmpRouting && m_flowEcmpRouting, "Ecmp mode selection");
