@@ -516,7 +516,6 @@ int main(int argc, char *argv[])
 		Ptr<Ipv4> ipv4 = n.Get(dst)->GetObject<Ipv4>();
 		Ipv4Address serverAddress = ipv4->GetAddress(1, 0).GetLocal(); //GetAddress(0,0) is the loopback 127.0.0.1
 
-		send_in_chunks = 1;
 		if (send_in_chunks)
 		{
 			UdpEchoServerHelper server0(port, pg); //Add Priority
