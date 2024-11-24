@@ -56,23 +56,41 @@ typedef struct
   std::string linkDescription;
 } LinkProperties;
 
+//struct LinkPairCompare
+//{
+//  bool operator () (P2pLinkNodeIdPair first, P2pLinkNodeIdPair second)
+//    {
+//      //Check if they are the same node pairs but flipped
+//      if (  ((first.fromNode == second.fromNode) && (first.toNode == second.toNode)) ||
+//            ((first.fromNode == second.toNode) && (first.toNode == second.fromNode)) )
+//        {
+//          return false;
+//        }
+//      std::ostringstream oss1;
+//      oss1 << first.fromNode << first.toNode;
+//      std::ostringstream oss2;
+//      oss2 << second.fromNode << second.toNode;
+//      return oss1.str () < oss2.str ();
+//    }
+//   
+//};
+
 struct LinkPairCompare
 {
-  bool operator () (P2pLinkNodeIdPair first, P2pLinkNodeIdPair second)
+    bool operator () (P2pLinkNodeIdPair first, P2pLinkNodeIdPair second) const  // Ìí¼Ó const
     {
-      //Check if they are the same node pairs but flipped
-      if (  ((first.fromNode == second.fromNode) && (first.toNode == second.toNode)) ||
-            ((first.fromNode == second.toNode) && (first.toNode == second.fromNode)) )
+        //Check if they are the same node pairs but flipped
+        if (((first.fromNode == second.fromNode) && (first.toNode == second.toNode)) ||
+            ((first.fromNode == second.toNode) && (first.toNode == second.fromNode)))
         {
-          return false;
+            return false;
         }
-      std::ostringstream oss1;
-      oss1 << first.fromNode << first.toNode;
-      std::ostringstream oss2;
-      oss2 << second.fromNode << second.toNode;
-      return oss1.str () < oss2.str ();
+        std::ostringstream oss1;
+        oss1 << first.fromNode << first.toNode;
+        std::ostringstream oss2;
+        oss2 << second.fromNode << second.toNode;
+        return oss1.str() < oss2.str();
     }
-   
 };
 
 /**

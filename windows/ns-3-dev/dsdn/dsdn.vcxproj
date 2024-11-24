@@ -22,6 +22,7 @@
     <ProjectGuid>{B960C686-C6F8-45A5-990F-2BD48D009E49}</ProjectGuid>
     <RootNamespace>dsdn</RootNamespace>
     <ProjectName>dsdv</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
