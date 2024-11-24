@@ -20,6 +20,8 @@
 #include <iostream>
 #include <fstream>
 #include <time.h> 
+#include <ns3/animation-interface.h>
+
 #include "ns3/core-module.h"
 #include "ns3/qbb-helper.h"
 #include "ns3/point-to-point-helper.h"
@@ -587,7 +589,8 @@ int main(int argc, char *argv[])
 	std::cout << "Running Simulation.\n";
 	fflush(stdout);
 	NS_LOG_INFO("Run Simulation.");
-	Simulator::Stop(Seconds(simulator_stop_time));
+    Simulator::Stop(Seconds(simulator_stop_time));
+	AnimationInterface anim("trace.xml");
 	Simulator::Run();
 	Simulator::Destroy();
 	NS_LOG_INFO("Done.");
