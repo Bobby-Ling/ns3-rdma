@@ -1,0 +1,18 @@
+The value of PACKET_PAYLOAD_SIZE is: 1000
+800.71808 789.31648
+Average Bandwidth from 0.000100 s to 0.005000 s: 798.062139 Gbps
+Fluctuation Rate from 0.000100 s to 0.005000 s: 0.014287
+798.68208 766.43184
+Average Bandwidth from 0.040000 s to 0.060000 s: 783.754128 Gbps
+Fluctuation Rate from 0.040000 s to 0.060000 s: 0.041148
+380.40624 101.71856
+Average Bandwidth from 0.090000 s to 0.100000 s: 189.325197 Gbps
+Fluctuation Rate from 0.090000 s to 0.100000 s: 1.472005
+
+Final Score Calculation:
+Average Bandwidth: 514.054733 Gbps
+Theoretical Bandwidth: 2400 Gbps
+Bandwidth Utilization: 0.214189
+Total Data: 72.1848 Gbits
+Completion Time: 0.140466 s
+Final Score: -57.0105

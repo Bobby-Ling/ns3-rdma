@@ -1,0 +1,8 @@
+flow_completion_time 0.120684
+average_bandwidth 609.7063964208783
+fluctuation_rate_1 0.004788071195271373
+fluctuation_rate_2 0.017553080208391723
+fluctuation_rate_3 0.6794085791790458
+
+Bandwidth Utilization: 0.254044
+Final Score: 2.01
