@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\examples\tutorial\third.cc" />
+    <ClCompile Include="..\..\..\scratch\third.cc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E295EBA9-1ACD-4583-B9C8-16C7FDD1E35A}</ProjectGuid>

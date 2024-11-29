@@ -65,6 +65,7 @@ public:
   virtual void Serialize (Buffer::Iterator start) const;
   virtual uint32_t Deserialize (Buffer::Iterator start);
   virtual uint32_t GetSerializedSize (void) const;
+  static uint32_t GetStaticSize (void);
 
   /**
    * \brief Set the protocol type carried by this PPP packet

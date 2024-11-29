@@ -154,6 +154,7 @@ copy "$(SolutionDir)\..\..\src\point-to-point\helper\*.h"  "$(SolutionDir)\heade
     <ClCompile Include="..\..\..\src\point-to-point\helper\qbb-helper.cc" />
     <ClCompile Include="..\..\..\src\point-to-point\model\cn-header.cc" />
     <ClCompile Include="..\..\..\src\point-to-point\model\pause-header.cc" />
+    <ClCompile Include="..\..\..\src\point-to-point\model\pint.cc" />
     <ClCompile Include="..\..\..\src\point-to-point\model\point-to-point-channel.cc" />
     <ClCompile Include="..\..\..\src\point-to-point\model\point-to-point-net-device.cc" />
     <ClCompile Include="..\..\..\src\point-to-point\model\point-to-point-remote-channel.cc" />
@@ -162,12 +163,19 @@ copy "$(SolutionDir)\..\..\src\point-to-point\helper\*.h"  "$(SolutionDir)\heade
     <ClCompile Include="..\..\..\src\point-to-point\model\qbb-header.cc" />
     <ClCompile Include="..\..\..\src\point-to-point\model\qbb-net-device.cc" />
     <ClCompile Include="..\..\..\src\point-to-point\model\qbb-remote-channel.cc" />
+    <ClCompile Include="..\..\..\src\point-to-point\model\rdma-driver.cc" />
+    <ClCompile Include="..\..\..\src\point-to-point\model\rdma-hw.cc" />
+    <ClCompile Include="..\..\..\src\point-to-point\model\rdma-queue-pair.cc" />
+    <ClCompile Include="..\..\..\src\point-to-point\model\switch-mmu.cc" />
+    <ClCompile Include="..\..\..\src\point-to-point\model\switch-node.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\point-to-point\helper\point-to-point-helper.h" />
     <ClInclude Include="..\..\..\src\point-to-point\helper\qbb-helper.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\helper\sim-setting.h" />
     <ClInclude Include="..\..\..\src\point-to-point\model\cn-header.h" />
     <ClInclude Include="..\..\..\src\point-to-point\model\pause-header.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\model\pint.h" />
     <ClInclude Include="..\..\..\src\point-to-point\model\point-to-point-channel.h" />
     <ClInclude Include="..\..\..\src\point-to-point\model\point-to-point-net-device.h" />
     <ClInclude Include="..\..\..\src\point-to-point\model\point-to-point-remote-channel.h" />
@@ -176,6 +184,12 @@ copy "$(SolutionDir)\..\..\src\point-to-point\helper\*.h"  "$(SolutionDir)\heade
     <ClInclude Include="..\..\..\src\point-to-point\model\qbb-header.h" />
     <ClInclude Include="..\..\..\src\point-to-point\model\qbb-net-device.h" />
     <ClInclude Include="..\..\..\src\point-to-point\model\qbb-remote-channel.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\model\rdma-driver.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\model\rdma-hw.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\model\rdma-queue-pair.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\model\switch-mmu.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\model\switch-node.h" />
+    <ClInclude Include="..\..\..\src\point-to-point\model\trace-format.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

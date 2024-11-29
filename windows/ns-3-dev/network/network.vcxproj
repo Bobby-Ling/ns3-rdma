@@ -157,7 +157,9 @@ copy "$(SolutionDir)\..\..\src\network\utils\*.h"  "$(SolutionDir)\headers\ns3"<
     <ClCompile Include="..\..\..\src\network\helper\trace-helper.cc" />
     <ClCompile Include="..\..\..\src\network\model\address.cc" />
     <ClCompile Include="..\..\..\src\network\model\application.cc" />
-    <ClCompile Include="..\..\..\src\network\model\broadcom-node.cc" />
+    <ClCompile Include="..\..\..\src\network\model\broadcom-node.cc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\..\src\network\model\buffer.cc" />
     <ClCompile Include="..\..\..\src\network\model\byte-tag-list.cc" />
     <ClCompile Include="..\..\..\src\network\model\channel-list.cc" />
@@ -178,6 +180,7 @@ copy "$(SolutionDir)\..\..\src\network\utils\*.h"  "$(SolutionDir)\headers\ns3"<
     <ClCompile Include="..\..\..\src\network\model\trailer.cc" />
     <ClCompile Include="..\..\..\src\network\utils\address-utils.cc" />
     <ClCompile Include="..\..\..\src\network\utils\broadcom-egress-queue.cc" />
+    <ClCompile Include="..\..\..\src\network\utils\custom-header.cc" />
     <ClCompile Include="..\..\..\src\network\utils\data-rate.cc" />
     <ClCompile Include="..\..\..\src\network\utils\drop-tail-queue.cc" />
     <ClCompile Include="..\..\..\src\network\utils\error-model.cc" />
@@ -186,6 +189,7 @@ copy "$(SolutionDir)\..\..\src\network\utils\*.h"  "$(SolutionDir)\headers\ns3"<
     <ClCompile Include="..\..\..\src\network\utils\flow-id-tag.cc" />
     <ClCompile Include="..\..\..\src\network\utils\inet-socket-address.cc" />
     <ClCompile Include="..\..\..\src\network\utils\inet6-socket-address.cc" />
+    <ClCompile Include="..\..\..\src\network\utils\int-header.cc" />
     <ClCompile Include="..\..\..\src\network\utils\ipv4-address.cc" />
     <ClCompile Include="..\..\..\src\network\utils\ipv6-address.cc" />
     <ClCompile Include="..\..\..\src\network\utils\llc-snap-header.cc" />
@@ -213,7 +217,9 @@ copy "$(SolutionDir)\..\..\src\network\utils\*.h"  "$(SolutionDir)\headers\ns3"<
     <ClInclude Include="..\..\..\src\network\helper\trace-helper.h" />
     <ClInclude Include="..\..\..\src\network\model\address.h" />
     <ClInclude Include="..\..\..\src\network\model\application.h" />
-    <ClInclude Include="..\..\..\src\network\model\broadcom-node.h" />
+    <ClInclude Include="..\..\..\src\network\model\broadcom-node.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\..\..\src\network\model\buffer.h" />
     <ClInclude Include="..\..\..\src\network\model\byte-tag-list.h" />
     <ClInclude Include="..\..\..\src\network\model\channel-list.h" />
@@ -234,6 +240,7 @@ copy "$(SolutionDir)\..\..\src\network\utils\*.h"  "$(SolutionDir)\headers\ns3"<
     <ClInclude Include="..\..\..\src\network\model\trailer.h" />
     <ClInclude Include="..\..\..\src\network\utils\address-utils.h" />
     <ClInclude Include="..\..\..\src\network\utils\broadcom-egress-queue.h" />
+    <ClInclude Include="..\..\..\src\network\utils\custom-header.h" />
     <ClInclude Include="..\..\..\src\network\utils\data-rate.h" />
     <ClInclude Include="..\..\..\src\network\utils\drop-tail-queue.h" />
     <ClInclude Include="..\..\..\src\network\utils\error-model.h" />
@@ -243,6 +250,7 @@ copy "$(SolutionDir)\..\..\src\network\utils\*.h"  "$(SolutionDir)\headers\ns3"<
     <ClInclude Include="..\..\..\src\network\utils\generic-phy.h" />
     <ClInclude Include="..\..\..\src\network\utils\inet-socket-address.h" />
     <ClInclude Include="..\..\..\src\network\utils\inet6-socket-address.h" />
+    <ClInclude Include="..\..\..\src\network\utils\int-header.h" />
     <ClInclude Include="..\..\..\src\network\utils\ipv4-address.h" />
     <ClInclude Include="..\..\..\src\network\utils\ipv6-address.h" />
     <ClInclude Include="..\..\..\src\network\utils\llc-snap-header.h" />

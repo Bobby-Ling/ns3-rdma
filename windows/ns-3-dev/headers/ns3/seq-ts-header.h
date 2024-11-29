@@ -23,6 +23,7 @@
 
 #include "ns3/header.h"
 #include "ns3/nstime.h"
+#include "ns3/int-header.h"
 
 namespace ns3 {
 /**
@@ -54,16 +55,18 @@ public:
   uint16_t GetPG () const;
 
   static TypeId GetTypeId (void);
-private:
   virtual TypeId GetInstanceTypeId (void) const;
   virtual void Print (std::ostream &os) const;
   virtual uint32_t GetSerializedSize (void) const;
+  static uint32_t GetHeaderSize(void);
+private:
   virtual void Serialize (Buffer::Iterator start) const;
   virtual uint32_t Deserialize (Buffer::Iterator start);
 
   uint32_t m_seq;
-  uint64_t m_ts;
   uint16_t m_pg;
+public:
+  IntHeader ih;
 };
 
 } // namespace ns3

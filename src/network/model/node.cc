@@ -71,59 +71,6 @@ Node::Node()
   : m_id (0),
     m_sid (0)
 {
-
-	/*
-	m_maxBufferBytes=100*1500;
-	m_usedTotalBytes=0;
-
-	for (int i=0;i<32;i++)
-	{
-		m_usedIngressPortMinBytes[i]=0;
-		m_usedIngressPortSharedBytes[i]=0;
-		m_usedIngressPortMinExceed[i]=0;
-		m_usedIngressPortSharedExceed[i]=0;
-		m_usedEgressPortBytes[i]=0;
-		for (int j=0;j<8;j++)
-		{
-			m_usedIngressPGMinBytes[i][j]=0;
-			m_usedIngressPGSharedBytes[i][j]=0;
-			m_usedIngressPGMinExceed[i][j]=0;
-			m_usedIngressPGSharedExceed[i][j]=0;
-			m_usedEgressQMinBytes[i][j]=0;
-			m_usedEgressQSharedBytes[i][j]=0;
-		}
-	}
-	for (int i=0;i<4;i++)
-	{
-		m_usedIngressSPBytes[i]=0;
-		m_usedIngressSPExceed[i]=0;
-		m_usedEgressSPBytes[i]=0;
-	}
-
-	m_usedIngressSPSharedBytes=0;
-	m_usedIngressSPSharedExceed=0;
-
-	m_usedIngressHeadroomBytes=0;
-
-
-	//ingress params
-	m_buffer_cell_limit_sp=30*1500; //ingress sp buffer threshold p.120
-	m_buffer_cell_limit_sp_shared=30*1500; //ingress sp buffer shared threshold p.120, nonshare -> share
-	m_pg_min_cell=1500; //ingress pg guarantee p.121					---1
-	m_port_min_cell=1500; //ingress port guarantee						---2
-	m_pg_shared_limit_cell=8*1500; //max buffer for an ingress pg			---3	PAUSE
-	m_port_max_shared_cell=20*1500; //max buffer for an ingress port		---4	PAUSE
-	m_pg_hdrm_limit=30*1500; //ingress pg headroom
-	m_port_max_pkt_size=5*1500; //ingress global headroom
-	//still needs reset limits..
-
-	//egress params
-	m_op_buffer_shared_limit_cell=100*1500; //per egress sp limit
-	m_op_uc_port_config_cell=100*1500; //per egress port limit
-	m_q_min_cell=100*1500;
-	m_op_uc_port_config1_cell=100*1500;
-	
-	*/
 	Construct ();
 }
 
@@ -131,57 +78,6 @@ Node::Node(uint32_t sid)
   : m_id (0),
     m_sid (sid)
 {
-	/*
-	m_maxBufferBytes=100*1500;
-	m_usedTotalBytes=0;
-
-	for (int i=0;i<32;i++)
-	{
-		m_usedIngressPortMinBytes[i]=0;
-		m_usedIngressPortSharedBytes[i]=0;
-		m_usedIngressPortMinExceed[i]=0;
-		m_usedIngressPortSharedExceed[i]=0;
-		m_usedEgressPortBytes[i]=0;
-		for (int j=0;j<8;j++)
-		{
-			m_usedIngressPGMinBytes[i][j]=0;
-			m_usedIngressPGSharedBytes[i][j]=0;
-			m_usedIngressPGMinExceed[i][j]=0;
-			m_usedIngressPGSharedExceed[i][j]=0;
-			m_usedEgressQMinBytes[i][j]=0;
-			m_usedEgressQSharedBytes[i][j]=0;
-		}
-	}
-	for (int i=0;i<4;i++)
-	{
-		m_usedIngressSPBytes[i]=0;
-		m_usedIngressSPExceed[i]=0;
-		m_usedEgressSPBytes[i]=0;
-	}
-
-	m_usedIngressSPSharedBytes=0;
-	m_usedIngressSPSharedExceed=0;
-
-	m_usedIngressHeadroomBytes=0;
-
-	//ingress params
-	m_buffer_cell_limit_sp=30*1500; //ingress sp buffer threshold p.120
-	m_buffer_cell_limit_sp_shared=30*1500; //ingress sp buffer shared threshold p.120, nonshare -> share
-	m_pg_min_cell=1500; //ingress pg guarantee p.121					---1
-	m_port_min_cell=1500; //ingress port guarantee						---2
-	m_pg_shared_limit_cell=8*1500; //max buffer for an ingress pg			---3	PAUSE
-	m_port_max_shared_cell=20*1500; //max buffer for an ingress port		---4	PAUSE
-	m_pg_hdrm_limit=30*1500; //ingress pg headroom
-	m_port_max_pkt_size=5*1500; //ingress global headroom
-	//still needs reset limits..
-
-	//egress params
-	m_op_buffer_shared_limit_cell=100*1500; //per egress sp limit
-	m_op_uc_port_config_cell=100*1500; //per egress port limit
-	m_op_uc_port_config1_cell=100*1500;
-	m_q_min_cell=100*1500;
-	*/
-
 	Construct ();
 }
 
@@ -189,7 +85,7 @@ void
 Node::Construct (void)
 {
 	m_node_type = 0;
-  m_id = NodeList::Add (this);
+	m_id = NodeList::Add (this);
 }
 
 Node::~Node ()
@@ -243,6 +139,13 @@ Node::AddApplication (Ptr<Application> application)
   Simulator::ScheduleWithContext (GetId (), Seconds (0.0), 
                                   &Application::Start, application);
   return index;
+}
+void Node::DeleteApplication (Ptr<Application> application){
+	for (auto it = m_applications.begin(); it != m_applications.end(); it++)
+		if (*it == application){
+			m_applications.erase(it);
+			break;
+		}
 }
 Ptr<Application> 
 Node::GetApplication (uint32_t index) const
@@ -436,332 +339,17 @@ Node::NotifyDeviceAdded (Ptr<NetDevice> device)
     }  
 }
  
-
-//yibo
-void 
-Node::SetNodeType(uint32_t type, bool dynamicth)
-{
-	m_node_type = type;
-	if (type==1)
-	{
-		m_broadcom = CreateObject<BroadcomNode>();
-		if (dynamicth)
-		{
-			m_broadcom->SetDynamicThreshold();
-		}
-	}
-}
-
-void 
-Node::SetNodeType(uint32_t type)
-{
-	m_node_type = type;
-	if (type==1)
-	{
-		m_broadcom = CreateObject<BroadcomNode>();
-	}
-}
-
 uint32_t 
 Node::GetNodeType()
 {
 	return m_node_type;
 }
 
-
-/*
-void
-Node::SetBroadcomParams(uint32_t maxBufferBytes, 
-						uint32_t maxIngressPortBytes,
-						uint32_t maxIngressSPBytes,
-						uint32_t maxIngressPGBytes,
-						uint32_t maxEgressPortBytes,
-						uint32_t maxEgressSPBytes,
-						uint32_t maxEgressPGBytes,
-						uint32_t buffer_cell_limit_sp, //ingress sp buffer threshold p.120
-						uint32_t buffer_cell_limit_sp_shared, //ingress sp buffer shared threshold p.120, nonshare -> share
-						uint32_t pg_min_cell, //ingress pg guarantee p.121					---1
-						uint32_t port_min_cell, //ingress port guarantee						---2
-						uint32_t pg_shared_limit_cell, //max buffer for an ingress pg			---3	PAUSE
-						uint32_t port_max_shared_cell, //max buffer for an ingress port		---4	PAUSE
-						uint32_t pg_hdrm_limit, //ingress pg headroom
-						uint32_t port_max_pkt_size, //ingress global headroom
-						uint32_t op_buffer_shared_limit_cell, //per egress sp limit
-						uint32_t uc_port_config_cell //per egress port limit
-						)
-{
-	m_maxBufferBytes = maxBufferBytes;
-	return;
+bool Node::SwitchReceiveFromDevice(Ptr<NetDevice> device, Ptr<Packet> packet, CustomHeader &ch){
+	NS_ASSERT_MSG(false, "Calling SwitchReceiveFromDevice() on a non-switch node or this function is not implemented");
 }
 
-bool 
-Node::CheckIngressAdmission(uint32_t port,uint32_t qIndex,uint32_t psize)
-{
-	if (m_usedTotalBytes+psize>m_maxBufferBytes)  //buffer full, usually should not reach here.
-	{
-		std::cout<<"WARNING: Drop because ingress buffer full\n";
-		return false;
-	}
-	if (m_usedIngressPGMinBytes[port][qIndex]+psize>m_pg_min_cell && m_usedIngressPortMinBytes[qIndex]+psize>m_port_min_cell) // exceed guaranteed, use share buffer
-	{
-		//after pg/port share limit reached, do packets go to service pool buffer or headroom?
-		if (m_usedIngressPGSharedBytes[port][qIndex]+psize>m_pg_shared_limit_cell					//exceed pg share limit, use headroom
-			|| m_usedIngressPortSharedBytes[port]+psize>m_port_max_shared_cell				//exceed port share limit, use headroom
-			|| (m_usedIngressSPBytes[GetIngressSP(port,qIndex)] + psize > m_buffer_cell_limit_sp	// exceed SP buffer limit and...
-			&& m_usedIngressSPSharedBytes + psize > m_buffer_cell_limit_sp_shared)					// exceed shared sp buffer, use headroom
-		   )
-		{
-			if (m_usedIngressHeadroomBytes + psize > m_pg_hdrm_limit) // exceed headroom space
-			{
-				std::cout<<"WARNING: Drop because ingress headroom full\n";
-				return false;
-			}
-		}
-	}
-	return true;
+void Node::SwitchNotifyDequeue(uint32_t ifIndex, uint32_t qIndex, Ptr<Packet> p){
+	NS_ASSERT_MSG(false, "Calling NotifyDequeue() on a non-switch node or this function is not implemented");
 }
-
-
-
-
-bool 
-Node::CheckEgressAdmission(uint32_t port,uint32_t qIndex,uint32_t psize)
-{
-	if (m_usedEgressSPBytes[GetEgressSP(port,qIndex)]+psize>m_op_buffer_shared_limit_cell)  //exceed the sp limit
-		return false;
-
-	if (m_usedEgressPortBytes[port]+psize>m_op_uc_port_config_cell)	//exceed the port limit
-		return false;
-
-	if (m_usedEgressQSharedBytes[port][qIndex]+psize>m_op_uc_port_config1_cell) //exceed the queue limit
-		return false;
-
-	return true;
-}
-
-
-void
-Node::UpdateIngressAdmission(uint32_t port,uint32_t qIndex,uint32_t psize)
-{
-	m_usedTotalBytes += psize; //count total buffer usage
-	if (m_usedIngressPGMinBytes[port][qIndex]+psize<m_pg_min_cell) //use guaranteed pg buffer
-	{
-		m_usedIngressPGMinBytes[port][qIndex]+=psize;
-		return;
-	}
-	else
-	{
-		m_usedIngressPGMinExceed[port][qIndex]++;
-	}
-	
-	if (m_usedIngressPortMinBytes[port]+psize<m_port_min_cell) //use guaranteed port buffer
-	{
-		// if the packet is using port_min, is it also counted for pg?
-		m_usedIngressPortMinBytes[port]+=psize;
-		return;
-	}
-	else
-	{
-		m_usedIngressPortMinExceed[port]++;
-	}
-
-	//begin to use shared buffer
-	if (m_usedIngressPGSharedBytes[port][qIndex]+psize<m_pg_shared_limit_cell)								//doesn't exceed pg share limit
-	{
-		if (m_usedIngressPortSharedBytes[port]+psize<m_port_max_shared_cell)								//doesn't exceed port share limit
-		{
-			if (m_usedIngressSPBytes[GetIngressSP(port,qIndex)]+psize < m_buffer_cell_limit_sp)				//doesn't exceed sp limit
-			{
-				m_usedIngressSPBytes[GetIngressSP(port,qIndex)]+=psize;
-				m_usedIngressPortSharedBytes[port]+=psize;
-				m_usedIngressPGSharedBytes[port][qIndex]+=psize;
-				return;
-			}
-			else
-			{
-				m_usedIngressSPExceed[GetIngressSP(port,qIndex)] ++;
-				if (m_usedIngressSPSharedBytes+psize<m_buffer_cell_limit_sp_shared)							//exceeds sp limit bu not sp share limit
-				{
-					m_usedIngressSPSharedBytes+=psize;
-					m_usedIngressPortSharedBytes[port]+=psize;
-					m_usedIngressPGSharedBytes[port][qIndex]+=psize;
-				}
-				else																						//exceeds sp share limit, use headroom
-				{
-					m_usedIngressHeadroomBytes += psize;
-					//std::cout<<"Exceed SP pg#" << qIndex << "share limit!    "<<m_usedIngressHeadroomBytes<<"\n";
-					//std::cout<<m_usedIngressSPSharedBytes<<"\t"<<m_usedIngressSPBytes[GetIngressSP(port,qIndex)]<<"\n";
-					m_usedIngressSPSharedExceed ++;
-					return;
-				}
-			}
-		}
-		else																								//exceeds port share limit, use headroom
-		{
-			m_usedIngressHeadroomBytes += psize;
-			//std::cout<<"Exceed Port pg#" << qIndex << "share limit!    "<<m_usedIngressHeadroomBytes<<"\n";
-			m_usedIngressPortSharedExceed[port] ++;
-			return;
-		}
-	}
-	else																									//exceeds pg share limit, use headroom
-	{
-
-		m_usedIngressHeadroomBytes += psize;
-		//std::cout<<"Exceed PG pg#" << qIndex << "share limit!    "<<m_usedIngressHeadroomBytes<<"\n";
-		m_usedIngressPGSharedExceed[port][qIndex] ++;
-		return;
-	}
-	return;
-}
-
-void 
-Node::UpdateEgressAdmission(uint32_t port,uint32_t qIndex,uint32_t psize)
-{
-
-	if (m_usedEgressQMinBytes[port][qIndex]+psize<m_q_min_cell)	//guaranteed
-	{
-		m_usedEgressQMinBytes[port][qIndex]+=psize;
-		return;
-	}
-	else
-	{
-		m_usedEgressQSharedBytes[port][qIndex]+=psize;
-		m_usedEgressPortBytes[port]+=psize;
-		m_usedEgressSPBytes[GetEgressSP(port,qIndex)]+=psize;
-	}
-
-	return;
-}
-
-void
-Node::RemoveFromIngressAdmission(uint32_t port,uint32_t qIndex,uint32_t psize)
-{
-	m_usedTotalBytes -= psize;
-	if (m_usedIngressPGMinExceed[port][qIndex]==0)																		//doesn't exceed pg min
-	{
-		//std::cout<<"!!!!!!!!!!!!\t"<<port<<"\t"<<qIndex<<"\n";
-		m_usedIngressPGMinBytes[port][qIndex]-=psize;
-		return;
-	}
-	else
-	{
-		m_usedIngressPGMinExceed[port][qIndex]--;
-	}
-
-	if (m_usedIngressPortMinExceed[port]==0)																		//doesn't exceed port min
-	{
-		//std::cout<<"@@@@@@@@@@@@\t"<<port<<"\t"<<qIndex<<"\n";
-		m_usedIngressPortMinBytes[port]-=psize;
-		return;
-	}
-	else
-	{
-		m_usedIngressPortMinExceed[port]--;
-	}
-
-	if (m_usedIngressPGSharedExceed[port][qIndex]>0)																//exceeds pg share limit, remove from headroom
-	{
-
-		m_usedIngressHeadroomBytes -= psize;
-		//std::cout<<"Remove from headroom for pg#" << qIndex <<"!           " << m_usedIngressHeadroomBytes<<"\n";
-		m_usedIngressPGSharedExceed[port][qIndex] --;
-		return;
-	}
-	if (m_usedIngressPortSharedExceed[port]>0)																		//exceeds port share limit, remove from headroom
-	{
-		m_usedIngressHeadroomBytes -= psize;
-		m_usedIngressPortSharedExceed[port] --;
-		return;
-	}
-	if (m_usedIngressSPSharedExceed>0)																				//exceeds sp share limit, remove from headroom
-	{
-		m_usedIngressHeadroomBytes -= psize;
-		m_usedIngressSPSharedExceed --;
-		return;
-	}
-	if (m_usedIngressSPExceed[GetIngressSP(port,qIndex)]>0)															//exceeds sp limit, remove from shared sp buffer
-	{
-		m_usedIngressSPSharedBytes-=psize;
-		m_usedIngressPortSharedBytes[port]-=psize;
-		m_usedIngressPGSharedBytes[port][qIndex]-=psize;
-		m_usedIngressSPExceed[GetIngressSP(port,qIndex)]--;
-		return;
-	}
-	else																											//nothing special
-	{
-		m_usedIngressSPBytes[GetIngressSP(port,qIndex)]-=psize;
-		m_usedIngressPortSharedBytes[port]-=psize;
-		m_usedIngressPGSharedBytes[port][qIndex]-=psize;
-	}
-	return;
-}
-
-void 
-Node::RemoveFromEgressAdmission(uint32_t port,uint32_t qIndex,uint32_t psize)
-{
-	//m_usedEgressPGBytes[qIndex] -= psize;
-	//m_usedEgressPortBytes[port] -= psize;
-	//m_usedEgressSPBytes[GetIngressSP(port,qIndex)] -= psize;
-
-	if (m_usedEgressQSharedBytes[port][qIndex]>0)
-	{
-		m_usedEgressQSharedBytes[port][qIndex]-=psize;
-		m_usedEgressPortBytes[port]-=psize;
-		m_usedEgressSPBytes[GetIngressSP(port,qIndex)]-=psize;
-	}
-	else
-	{
-		m_usedEgressQMinBytes[port][qIndex]-=psize;
-	}
-
-	return;
-}
-
-void
-Node::GetPauseClasses(uint32_t port, uint32_t qIndex, bool pClasses[])
-{
-	if (m_usedIngressPortSharedExceed[port]>0)					//pause the whole port
-	{
-		for (int i=0;i<8;i++)
-		{
-			pClasses[i]=true;
-		}
-		return;
-	}
-	else
-	{
-		for (int i=0;i<8;i++)
-		{
-			pClasses[i]=false;
-		}
-	}
-	
-
-	if (m_usedIngressPGSharedExceed[port][qIndex]>0)
-	{
-		pClasses[qIndex]=true;
-	}
-	//what if sp share buffer is exceeded?
-
-	return;
-}
-
-uint32_t 
-Node::GetIngressSP(uint32_t port,uint32_t pgIndex)
-{
-	return 0;
-}
-
-uint32_t 
-Node::GetEgressSP(uint32_t port,uint32_t qIndex)
-{
-	return 0;
-}
-
-
-*/
-
-
-
 } // namespace ns3

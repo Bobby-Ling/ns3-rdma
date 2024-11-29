@@ -45,6 +45,24 @@
     <ClCompile Include="..\..\..\src\point-to-point\helper\qbb-helper.cc">
       <Filter>helper</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\point-to-point\model\pint.cc">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\point-to-point\model\rdma-driver.cc">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\point-to-point\model\rdma-hw.cc">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\point-to-point\model\rdma-queue-pair.cc">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\point-to-point\model\switch-mmu.cc">
+      <Filter>model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\point-to-point\model\switch-node.cc">
+      <Filter>model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\point-to-point\model\point-to-point-channel.h">
@@ -82,6 +100,30 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\point-to-point\helper\qbb-helper.h">
       <Filter>helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\helper\sim-setting.h">
+      <Filter>helper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\model\pint.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\model\rdma-driver.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\model\rdma-hw.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\model\rdma-queue-pair.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\model\switch-mmu.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\model\switch-node.h">
+      <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\point-to-point\model\trace-format.h">
+      <Filter>model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

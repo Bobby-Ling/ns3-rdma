@@ -86,6 +86,8 @@ public:
    */
   void SetDataRate (DataRate bps);
 
+  DataRate GetDataRate();
+
   /**
    * Set the interframe gap used to separate packets.  The interframe gap
    * defines the minimum space required between packets sent by this device.

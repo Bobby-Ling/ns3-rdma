@@ -31,9 +31,10 @@ namespace ns3 {
 NS_OBJECT_ENSURE_REGISTERED (SeqTsHeader);
 
 SeqTsHeader::SeqTsHeader ()
-  : m_seq (0),
-    m_ts (Simulator::Now ().GetTimeStep ())
+  : m_seq (0)
 {
+	if (IntHeader::mode == 1)
+		ih.ts = Simulator::Now().GetTimeStep();
 }
 
 void
@@ -58,11 +59,11 @@ SeqTsHeader::GetPG (void) const
 	return m_pg;
 }
 
-
 Time
 SeqTsHeader::GetTs (void) const
 {
-  return TimeStep (m_ts);
+	NS_ASSERT_MSG(IntHeader::mode == 1, "SeqTsHeader cannot GetTs when IntHeader::mode != 1");
+	return TimeStep (ih.ts);
 }
 
 TypeId
@@ -89,7 +90,10 @@ SeqTsHeader::Print (std::ostream &os) const
 uint32_t
 SeqTsHeader::GetSerializedSize (void) const
 {
-  return 14;
+	return GetHeaderSize();
+}
+uint32_t SeqTsHeader::GetHeaderSize(void){
+	return 6 + IntHeader::GetStaticSize();
 }
 
 void
@@ -97,16 +101,20 @@ SeqTsHeader::Serialize (Buffer::Iterator start) const
 {
   Buffer::Iterator i = start;
   i.WriteHtonU32 (m_seq);
-  i.WriteHtonU64 (m_ts);
   i.WriteHtonU16 (m_pg);
+
+  // write IntHeader
+  ih.Serialize(i);
 }
 uint32_t
 SeqTsHeader::Deserialize (Buffer::Iterator start)
 {
   Buffer::Iterator i = start;
   m_seq = i.ReadNtohU32 ();
-  m_ts =  i.ReadNtohU64 ();
   m_pg =  i.ReadNtohU16 ();
+
+  // read IntHeader
+  ih.Deserialize(i);
   return GetSerializedSize ();
 }
 

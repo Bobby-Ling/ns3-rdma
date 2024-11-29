@@ -161,6 +161,7 @@ copy "$(SolutionDir)\..\..\src\applications\helper\*.h"  "$(SolutionDir)\headers
     <ClCompile Include="..\..\..\src\applications\model\radvd-interface.cc" />
     <ClCompile Include="..\..\..\src\applications\model\radvd-prefix.cc" />
     <ClCompile Include="..\..\..\src\applications\model\radvd.cc" />
+    <ClCompile Include="..\..\..\src\applications\model\rdma-client.cc" />
     <ClCompile Include="..\..\..\src\applications\model\udp-client.cc" />
     <ClCompile Include="..\..\..\src\applications\model\udp-echo-client.cc" />
     <ClCompile Include="..\..\..\src\applications\model\udp-echo-server.cc" />
@@ -184,6 +185,7 @@ copy "$(SolutionDir)\..\..\src\applications\helper\*.h"  "$(SolutionDir)\headers
     <ClInclude Include="..\..\..\src\applications\model\radvd-interface.h" />
     <ClInclude Include="..\..\..\src\applications\model\radvd-prefix.h" />
     <ClInclude Include="..\..\..\src\applications\model\radvd.h" />
+    <ClInclude Include="..\..\..\src\applications\model\rdma-client.h" />
     <ClInclude Include="..\..\..\src\applications\model\udp-client.h" />
     <ClInclude Include="..\..\..\src\applications\model\udp-echo-client.h" />
     <ClInclude Include="..\..\..\src\applications\model\udp-echo-server.h" />

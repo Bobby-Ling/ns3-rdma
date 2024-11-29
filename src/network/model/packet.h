@@ -572,6 +572,8 @@ public:
   void SetNixVector (Ptr<NixVector>);
   Ptr<NixVector> GetNixVector (void) const; 
 
+  uint8_t* GetBuffer() const;
+
 private:
   Packet (const Buffer &buffer, const ByteTagList &byteTagList, 
           const PacketTagList &packetTagList, const PacketMetadata &metadata);

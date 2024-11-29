@@ -73,6 +73,8 @@ public:
   void SetECNBits (const uint8_t ecnbits);
   uint8_t GetECNBits () const;
 
+  void SetSeq (const uint32_t seq);
+  uint32_t GetSeq () const;
 
   static TypeId GetTypeId (void);
   virtual TypeId GetInstanceTypeId (void) const;
@@ -82,11 +84,17 @@ public:
   virtual uint32_t Deserialize (Buffer::Iterator start);
 
 private:
+  uint16_t sport, dport;
   uint16_t m_fid;
   uint8_t m_qIndex;
-  uint16_t m_qfb;
   uint8_t m_ecnBits;
-  uint16_t m_total;
+  union {
+	  struct {
+		  uint16_t m_qfb;
+		  uint16_t m_total;
+	  };
+	  uint32_t m_seq;
+  };
 };
 
 }; // namespace ns3

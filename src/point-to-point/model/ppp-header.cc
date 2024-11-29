@@ -75,19 +75,25 @@ PppHeader::Print (std::ostream &os) const
 uint32_t
 PppHeader::GetSerializedSize (void) const
 {
-  return 2;
+	return GetStaticSize();
+}
+uint32_t PppHeader::GetStaticSize (void){
+	return 14;
 }
 
 void
 PppHeader::Serialize (Buffer::Iterator start) const
 {
   start.WriteHtonU16 (m_protocol);
+  start.WriteU64(0);
+  start.WriteU32(0);
 }
 
 uint32_t
 PppHeader::Deserialize (Buffer::Iterator start)
 {
   m_protocol = start.ReadNtohU16 ();
+  start.Next(12);
   return GetSerializedSize ();
 }
 

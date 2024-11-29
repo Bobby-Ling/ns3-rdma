@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include "ns3/header.h"
 #include "ns3/buffer.h"
+#include "ns3/int-header.h"
 
 namespace ns3 {
 
@@ -22,6 +23,9 @@ class qbbHeader : public Header
 {
 public:
  
+  enum {
+	  FLAG_CNP = 0
+  };
   qbbHeader (uint16_t pg);
   qbbHeader ();
   virtual ~qbbHeader ();
@@ -32,7 +36,11 @@ public:
    */
   void SetPG (uint16_t pg);
   void SetSeq(uint32_t seq);
-  void SetPort(uint16_t port);
+  void SetSport(uint32_t _sport);
+  void SetDport(uint32_t _dport);
+  void SetTs(uint64_t ts);
+  void SetCnp();
+  void SetIntHeader(const IntHeader &_ih);
 
 //Getters
   /**
@@ -41,6 +49,10 @@ public:
   uint16_t GetPG () const;
   uint32_t GetSeq() const;
   uint16_t GetPort() const;
+  uint16_t GetSport() const;
+  uint16_t GetDport() const;
+  uint64_t GetTs() const;
+  uint8_t GetCnp() const;
 
   static TypeId GetTypeId (void);
   virtual TypeId GetInstanceTypeId (void) const;
@@ -48,11 +60,14 @@ public:
   virtual uint32_t GetSerializedSize (void) const;
   virtual void Serialize (Buffer::Iterator start) const;
   virtual uint32_t Deserialize (Buffer::Iterator start);
+  static uint32_t GetBaseSize(); // size without INT
 
 private:
+  uint16_t sport, dport;
+  uint16_t flags;
   uint16_t m_pg;
   uint32_t m_seq; // the qbb sequence number.
-  uint16_t m_port; //udp port to identify flows...
+  IntHeader ih;
   
 };
 

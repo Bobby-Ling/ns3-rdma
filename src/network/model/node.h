@@ -27,7 +27,6 @@
 #include "ns3/callback.h"
 #include "ns3/ptr.h"
 #include "ns3/net-device.h"
-#include "ns3/broadcom-node.h"
 
 namespace ns3 {
 
@@ -110,6 +109,12 @@ public:
    * Associated this Application to this Node. 
    */
   uint32_t AddApplication (Ptr<Application> application);
+  /**
+   * \param application Application to remove from this node.
+   *
+   * Remove this Application from this Node. 
+   */
+  void DeleteApplication (Ptr<Application> application);
   /**
    * \param index
    * \returns the application associated to this requested index
@@ -196,9 +201,6 @@ public:
   static bool ChecksumEnabled (void);
 
   //yibo
-  Ptr<BroadcomNode> m_broadcom;
-  void SetNodeType(uint32_t type, bool dynamicth);
-  void SetNodeType(uint32_t type);
   uint32_t GetNodeType();
   
   /*
@@ -320,6 +322,11 @@ protected:
   std::vector<Ptr<Application> > m_applications;
   ProtocolHandlerList m_handlers;
   DeviceAdditionListenerList m_deviceAdditionListeners;
+
+  // Yuliang
+public:
+  virtual bool SwitchReceiveFromDevice(Ptr<NetDevice> device, Ptr<Packet> packet, CustomHeader &ch);
+  virtual void SwitchNotifyDequeue(uint32_t ifIndex, uint32_t qIndex, Ptr<Packet> p);
 };
 
 } // namespace ns3

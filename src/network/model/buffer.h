@@ -523,6 +523,8 @@ private:
 
   uint32_t CopyData (uint8_t *buffer, uint32_t size) const;
 
+  uint8_t* GetBuffer() const;
+
   inline Buffer (Buffer const &o);
   Buffer &operator = (Buffer const &o);
   Buffer ();
