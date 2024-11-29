@@ -10,16 +10,17 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "cwd": "${fileDirname}",
+            "cwd": "${fileDirname}/50/origin-rtbl-hash-mod",
+            // "cwd": "${fileDirname}/6400/origin",
             "args": [
                 // "${command:pickArgs}"
-                "--config",
-                "small/config.txt",
-                // "simple/config.txt",
-                "--trace",
-                // "simple/mix.tr",
-                "small/mix.tr",
-                ""
+                // "--config",
+                // "small/config.txt",
+                // // "simple/config.txt",
+                // "--trace",
+                // // "simple/mix.tr",
+                // "small/mix.tr",
+                // ""
             ]
         }
     ]
