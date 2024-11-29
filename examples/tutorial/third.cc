@@ -32,6 +32,7 @@
 #include "ns3/broadcom-node.h"
 #include "ns3/packet.h"
 #include "ns3/error-model.h"
+#include "ns3/flow-monitor-helper.h"
 
 using namespace ns3;
 
@@ -50,7 +51,41 @@ std::string rate_ai, rate_hai;
 bool clamp_target_rate = false, clamp_target_rate_after_timer = false, send_in_chunks = true, l2_wait_for_ack = false, l2_back_to_zero = false, l2_test_read = false;
 double error_rate_per_link = 0.0;
 
+// 在全局变量区域添加：
+std::map<Ptr<Packet>, std::vector<uint32_t>> packet_paths;
 
+// 创建一个跟踪回调函数
+void TrackPacketPath(Ptr<Packet> packet, Ptr<NetDevice> device, Ptr<NetDevice> destDevice, uint32_t nodeId) {
+	// 如果这是第一次看到这个包，初始化其路径
+	if (packet_paths.find(packet) == packet_paths.end()) {
+		packet_paths[packet] = std::vector<uint32_t>();
+	}
+
+	// 添加当前节点到包的路径
+	packet_paths[packet].push_back(nodeId);
+}
+
+// 在main函数最后添加输出路径的函数
+void OutputPacketPaths() {
+	std::ofstream path_file(trace_output_file + "_packet_paths.txt");
+
+	for (const auto& path_entry : packet_paths) {
+		Ptr<Packet> packet = path_entry.first;
+		const std::vector<uint32_t>& path = path_entry.second;
+
+		// 输出路径
+		path_file << "Packet " << packet << " path: ";
+		for (size_t i = 0; i < path.size(); ++i) {
+			path_file << path[i];
+			if (i < path.size() - 1) {
+				path_file << " -> ";
+			}
+		}
+		path_file << std::endl;
+	}
+
+	path_file.close();
+}
 
 int main(int argc, char *argv[])
 {
@@ -499,7 +534,11 @@ int main(int argc, char *argv[])
 	AsciiTraceHelper ascii;
 	qbb.EnableAscii(ascii.CreateFileStream(trace_output_file), trace_nodes);
 
-	Ipv4GlobalRoutingHelper::PopulateRoutingTables();
+    Ipv4GlobalRoutingHelper::PopulateRoutingTables();
+
+	//auto stdout_stream = Create<ns3::OutputStreamWrapper>(std::_Ptr_cout);
+	//Ipv4GlobalRoutingHelper ipv4GlobalRouting;
+	//ipv4GlobalRouting.PrintRoutingTableAllAt(ns3::Time("0.2ms"), stdout_stream);
 
 	NS_LOG_INFO("Create Applications.");
 
@@ -514,6 +553,7 @@ int main(int argc, char *argv[])
 			continue;
 		used_port[port] = true;
 		flowf >> src >> dst >> pg >> maxPacketCount >> start_time >> stop_time;
+		dst = std::min(415, static_cast<int>(dst)); // dst不能大于等于416
 		NS_ASSERT(n.Get(src)->GetNodeType() == 0 && n.Get(dst)->GetNodeType() == 0);
 		Ptr<Ipv4> ipv4 = n.Get(dst)->GetObject<Ipv4>();
 		Ipv4Address serverAddress = ipv4->GetAddress(1, 0).GetLocal(); //GetAddress(0,0) is the loopback 127.0.0.1
@@ -583,6 +623,9 @@ int main(int argc, char *argv[])
 	tracef.close();
 	tcpflowf.close();
 
+	//FlowMonitorHelper flowmonHelper;
+	//flowmonHelper.InstallAll();
+
 	//
 	// Now, do the actual simulation.
 	//
@@ -590,8 +633,15 @@ int main(int argc, char *argv[])
 	fflush(stdout);
 	NS_LOG_INFO("Run Simulation.");
     Simulator::Stop(Seconds(simulator_stop_time));
-	AnimationInterface anim("trace.xml");
+	//AnimationInterface anim("trace.xml");
+	//anim.EnablePacketMetadata(true);
+	Config::ConnectWithoutContext("/NodeList/*/DeviceList/*/TxQueue/Enqueue",
+		MakeCallback(&TrackPacketPath));
 	Simulator::Run();
+	Simulator::Schedule(Seconds(simulator_stop_time), &OutputPacketPaths);
+
+	//flowmonHelper.GetMonitor()->SerializeToXmlFile("flow.flowmon", false, false);
+
 	Simulator::Destroy();
 	NS_LOG_INFO("Done.");
 

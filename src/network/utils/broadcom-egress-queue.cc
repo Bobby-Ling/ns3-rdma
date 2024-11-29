@@ -297,6 +297,9 @@ namespace ns3 {
 			m_nPackets++;
 			m_nTotalReceivedPackets++;
 		}
+		else {
+			NS_LOG_UNCOND(" DoEnqueue fails, Queue::Drop is called by the subclass");
+		}
 		return retval;
 	}
 
