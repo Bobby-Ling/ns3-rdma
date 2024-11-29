@@ -75,6 +75,9 @@
     <ClCompile Include="..\..\..\src\applications\model\rdma-client.cc">
       <Filter>model</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\applications\helper\rdma-client-helper.cc">
+      <Filter>helper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\applications\model\bulk-send-application.h">
@@ -142,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\applications\model\rdma-client.h">
       <Filter>model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\applications\helper\rdma-client-helper.h">
+      <Filter>helper</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

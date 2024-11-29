@@ -22,6 +22,7 @@
 #include "ns3/log.h"
 #include "ns3/uinteger.h"
 #include "net-device.h"
+#include "ns3/packet.h" // ÃÌº”’‚––
 #include <iostream>
 
 NS_LOG_COMPONENT_DEFINE ("NetDevice");
